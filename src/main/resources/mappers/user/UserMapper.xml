@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.coder.dream.dao.mapper.user.UserMapper">
+
+    <insert
+            id="insert"
+            parameterType="com.coder.dream.dao.model.user.User">
+            insert into t_user (
+              id,
+              name,
+              comments,
+              create_time,
+              update_time
+            ) values (
+              #{id},
+              #{name},
+              #{comments},
+              #{createTime},
+              #{updateTime}
+            )
+    </insert>
+
+    <sql id="selectColumns">
+        id,
+        name,
+        comments,
+        create_time as createTime,
+        update_time as updateTime
+    </sql>
+
+    <sql id="selectColumns2">
+        id,
+        name
+    </sql>
+
+    <select id="list" parameterType="com.coder.dream.base.dao.query.Query" resultType="com.coder.dream.dao.model.user.User">
+        select <include refid="selectColumns"/> from t_user
+        <include refid="whereReference"/>
+        <include refid="orderReference"/>
+        <include refid="pageReference"/>
+    </select>
+
+    <select id="count" parameterType="com.coder.dream.base.dao.query.Query" resultType="java.lang.Integer">
+        select count(*) from t_user
+        <include refid="whereReference"/>
+    </select>
+
+    <select id="findOneWithLock" parameterType="com.coder.dream.base.dao.query.Query" resultType="com.coder.dream.dao.model.user.Lock">
+        select <include refid="selectColumns2"/> from t_locks
+        <include refid="whereReference"/> for update
+    </select>
+
+    <sql id="whereReference">
+        <where>
+            <foreach collection="filters" index="filter" item="value">
+                <choose>
+                    <when test="filter.operator == 'in' || filter.operator == 'not in'">
+                        ${filter.calculation} ${filter.column} ${filter.operator}
+                        <foreach collection="value" index="index" item="item" open="(" separator="," close=")">
+                            #{item}
+                        </foreach>
+                    </when>
+                    <when test="filter.calculation == 'or'">
+                        <include refid="orFilter"/>
+                    </when>
+                    <otherwise>
+                        ${filter.calculation} ${filter.column} ${filter.operator} #{value}
+                    </otherwise>
+                </choose>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="orFilter">
+        ${filter.calculation}
+        <foreach collection="value" index="subFilter" item="subValue" open="(" separator="and" close=")">
+            <choose>
+                <when test="subFilter.operator == 'in' || subFilter.operator == 'not in'">
+                    ${subFilter.column} ${subFilter.operator}
+                    <foreach collection="subValue" index="subIndex" item="subItem" open="(" separator="," close=")">
+                        #{subItem}
+                    </foreach>
+                </when>
+                <otherwise>
+                    ${subFilter.column} ${subFilter.operator} #{subValue}
+                </otherwise>
+            </choose>
+        </foreach>
+    </sql>
+
+    <sql id="orderReference">
+        <if test="orders != null and orders.size > 0">
+            order by
+            <foreach collection="orders" index="order" item="value" separator="," >
+                ${order.column} ${order.direction}
+            </foreach>
+        </if>
+    </sql>
+
+    <sql id="pageReference">
+        <if test="pageParam != null">
+            limit #{pageParam.start},#{pageParam.limit}
+        </if>
+    </sql>
+
+</mapper>
