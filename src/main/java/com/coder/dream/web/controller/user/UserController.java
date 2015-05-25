@@ -70,24 +70,4 @@ public class UserController extends BaseController<User,UserMapper,UserDao,UserS
 
         return new ResultMap();
     }
-
-    @RequestMapping(value = "/testWithLock")
-    public ResultMap test2(){
-        final UserService s = service;
-
-        //²¢·¢²âÊÔ
-        for (int i = 0; i < 10; i++){
-            final User user = new User();
-            user.setName(String.valueOf(i));
-            user.setComments(String.valueOf(i));
-            user.setCreateTime(new Date());
-            new Thread(new Runnable() {
-                public void run() {
-                    s.concuryWithLock(user);
-                }
-            }).start();
-        }
-
-        return new ResultMap();
-    }
 }
