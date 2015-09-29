@@ -4,8 +4,8 @@
 
     <insert
             id="insert"
-            parameterType="com.coder.dream.dao.model.user.User">
-            insert into t_user (
+            parameterType="com.coder.dream.dao.model.user.User" useGeneratedKeys="true" keyProperty="id">
+            insert into t_user_info (
               id,
               name,
               comments,
@@ -28,26 +28,23 @@
         update_time as updateTime
     </sql>
 
-    <sql id="selectColumns2">
-        id,
-        name
-    </sql>
-
     <select id="list" parameterType="com.coder.dream.base.dao.query.Query" resultType="com.coder.dream.dao.model.user.User">
-        select <include refid="selectColumns"/> from t_user
+        select <include refid="selectColumns"/> from t_user_info
+        <include refid="whereReference"/>
+        <include refid="orderReference"/>
+        <include refid="pageReference"/>
+    </select>
+
+    <select id="findIds" parameterType="com.coder.dream.base.dao.query.Query" resultType="java.lang.Integer">
+        select <include refid="selectColumns"/> from t_user_info
         <include refid="whereReference"/>
         <include refid="orderReference"/>
         <include refid="pageReference"/>
     </select>
 
     <select id="count" parameterType="com.coder.dream.base.dao.query.Query" resultType="java.lang.Integer">
-        select count(*) from t_user
+        select count(*) from t_user_info
         <include refid="whereReference"/>
-    </select>
-
-    <select id="findOneWithLock" parameterType="com.coder.dream.base.dao.query.Query" resultType="com.coder.dream.dao.model.user.Lock">
-        select <include refid="selectColumns2"/> from t_locks
-        <include refid="whereReference"/> for update
     </select>
 
     <sql id="whereReference">

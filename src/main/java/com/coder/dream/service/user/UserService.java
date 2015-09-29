@@ -1,41 +1,42 @@
 package com.coder.dream.service.user;
 
-import com.coder.dream.base.service.BaseService;
-import com.coder.dream.base.web.vo.BaseVo;
 import com.coder.dream.base.web.vo.FilterMap;
-import com.coder.dream.dao.mapper.user.UserMapper;
+import com.coder.dream.base.web.vo.OrderMap;
+import com.coder.dream.base.web.vo.ResultMap;
 import com.coder.dream.dao.model.user.User;
 import com.coder.dream.dao.support.user.UserDao;
-import com.coder.dream.web.vo.user.UserVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
 @Transactional
-public class UserService extends BaseService<User,UserMapper,UserDao>{
+public class UserService{
 
-    @Override
-    protected void toListVo(User user, BaseVo vo) {
-        super.toListVo(user, vo);
-        UserVo userVo = (UserVo)vo;
-        userVo.setName(user.getName());
-        userVo.setUpdateTime(user.getUpdateTime());
-    }
+    @Autowired
+    private UserDao userDao;
 
     /**
-     * 存储
-     *
-     * @param user
+     * 所有用户
+     * @return
      */
-    public void concury(User user){
-        //求当前的数量
+    public ResultMap list(){
         FilterMap filterMap = new FilterMap();
-        Integer count = dao.count(filterMap);
-        if(count >= 2){
-            return ;
-        }
+        OrderMap orderMap = new OrderMap();
+        List<User> list = userDao.list(filterMap, orderMap);
+        ResultMap resultMap = new ResultMap();
+        resultMap.success(list);
+        return resultMap;
+    }
 
-        dao.create(user);
+    public User create(User user){
+        return userDao.create(user);
+    }
+
+    public User findOne(Integer id){
+        return userDao.findOne(id);
     }
 }
