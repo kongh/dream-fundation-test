@@ -26,7 +26,7 @@ public class UserService{
     public ResultMap list(){
         FilterMap filterMap = new FilterMap();
         OrderMap orderMap = new OrderMap();
-        List<User> list = userDao.list(filterMap, orderMap);
+        List<User> list = userDao.list(filterMap, orderMap,true);
         ResultMap resultMap = new ResultMap();
         resultMap.success(list);
         return resultMap;

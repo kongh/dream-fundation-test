@@ -15,6 +15,7 @@ public class User extends BaseEntity{
 
     private Date updateTime;
 
+
     public String getName() {
         return name;
     }
@@ -45,18 +46,5 @@ public class User extends BaseEntity{
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    @Override
-    public String toString() {
-//        StringBuffer buffer = new StringBuffer();
-//        Field[] fields = this.getClass().getDeclaredFields();
-//        if(fields != null && fields.length > 0){
-//            for (int i = 0; i < fields.length; i++) {
-//                Field field = fields[i];
-//                field.get
-//            }
-//        }
-        return super.toString();
     }
 }
