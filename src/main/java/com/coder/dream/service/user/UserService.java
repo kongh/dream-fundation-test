@@ -3,8 +3,9 @@ package com.coder.dream.service.user;
 import com.coder.dream.base.web.vo.FilterMap;
 import com.coder.dream.base.web.vo.OrderMap;
 import com.coder.dream.base.web.vo.ResultMap;
-import com.coder.dream.dao.model.user.User;
-import com.coder.dream.dao.support.user.UserDao;
+import com.coder.dream.data.dao.model.user.User;
+import com.coder.dream.data.dao.support.user.UserDao;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ public class UserService{
     @Autowired
     private UserDao userDao;
 
+    private static Logger logger = Logger.getLogger(UserService.class);
     /**
      * 所有用户
      * @return
@@ -29,6 +31,7 @@ public class UserService{
         List<User> list = userDao.list(filterMap, orderMap,true);
         ResultMap resultMap = new ResultMap();
         resultMap.success(list);
+        logger.error("Finished");
         return resultMap;
     }
 

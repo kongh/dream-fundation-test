@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.coder.dream.dao.mapper.user.UserMapper" >
+<mapper namespace="com.coder.dream.data.dao.mapper.user.UserMapper" >
     <!--引入BaseMapper功能，增删列优先用生成器生成新的文件，若有新的sql语句，请在最后面加入-->
-    <resultMap id="BaseResultMap" type="com.coder.dream.dao.model.user.User" >
+    <resultMap id="BaseResultMap" type="com.coder.dream.data.dao.model.user.User" >
         <id column="id" property="id" jdbcType="INTEGER" />
         <result column="name" property="name" jdbcType="VARCHAR" />
         <result column="comments" property="comments" jdbcType="VARCHAR" />
@@ -16,7 +16,7 @@
     </sql>
 
 
-    <insert id="insert" parameterType="com.coder.dream.dao.model.user.User" useGeneratedKeys="true" keyProperty="id" >
+    <insert id="insert" parameterType="com.coder.dream.data.dao.model.user.User" useGeneratedKeys="true" keyProperty="id" >
         insert into t_user
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="name != null" >
@@ -49,7 +49,7 @@
     </insert>
 
 
-    <update id="update" parameterType="com.coder.dream.dao.model.user.User" >
+    <update id="update" parameterType="com.coder.dream.data.dao.model.user.User" >
         update t_user
         <set >
             <if test="name != null" >
@@ -69,7 +69,7 @@
     </update>
 
 
-    <select id="list" parameterType="com.coder.dream.base.dao.query.Query" resultMap="BaseResultMap" >
+    <select id="list" parameterType="com.coder.dream.base.data.dao.query.Query" resultMap="BaseResultMap" >
         select <include refid="Base_Column_List" />  from t_user
         <include refid="whereReference" />
         <include refid="orderReference" />
@@ -77,14 +77,14 @@
     </select>
 
 
-    <select id="findOne" parameterType="com.coder.dream.base.dao.query.Query" resultMap="BaseResultMap" >
+    <select id="findOne" parameterType="com.coder.dream.base.data.dao.query.Query" resultMap="BaseResultMap" >
         select <include refid="Base_Column_List" />  from t_user
         <include refid="whereReference" />
         <include refid="rowLockReference"/>
     </select>
 
 
-    <select id="findIds" parameterType="com.coder.dream.base.dao.query.Query" resultType="java.lang.Integer" >
+    <select id="findIds" parameterType="com.coder.dream.base.data.dao.query.Query" resultType="java.lang.Integer" >
         select <include refid="Base_Column_List" />  from t_user
         <include refid="whereReference" />
         <include refid="orderReference" />
@@ -92,7 +92,7 @@
     </select>
 
 
-    <select id="count" parameterType="com.coder.dream.base.dao.query.Query" resultType="java.lang.Integer" >
+    <select id="count" parameterType="com.coder.dream.base.data.dao.query.Query" resultType="java.lang.Integer" >
         select count(*) from t_user
         <include refid="whereReference" />
     </select>

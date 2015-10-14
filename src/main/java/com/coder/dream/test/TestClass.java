@@ -1,8 +1,8 @@
 package com.coder.dream.test;
 
-import com.coder.dream.base.dao.query.support.DefaultDynamicQuery;
-import com.coder.dream.dao.mapper.user.UserMapper;
-import com.coder.dream.dao.model.user.User;
+import com.coder.dream.base.data.dao.query.support.DefaultDynamicQuery;
+import com.coder.dream.data.dao.mapper.user.UserMapper;
+import com.coder.dream.data.dao.model.user.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

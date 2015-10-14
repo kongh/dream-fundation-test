@@ -18,4 +18,5 @@
           </property>
       </bean>
 
+    <bean id="entityCachedManager" class="com.coder.dream.base.data.cache.support.MemcachedManager"></bean>
 </beans>

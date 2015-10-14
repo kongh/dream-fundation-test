@@ -1,7 +1,7 @@
 package com.coder.dream.web.controller.user;
 
 import com.coder.dream.base.web.vo.ResultMap;
-import com.coder.dream.dao.model.user.User;
+import com.coder.dream.data.dao.model.user.User;
 import com.coder.dream.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

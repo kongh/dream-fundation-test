@@ -22,7 +22,7 @@
 
        <!--configruer-->
        <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-              <property name="basePackage" value="com.coder.dream.dao.mapper"/>
+              <property name="basePackage" value="com.coder.dream.data.dao.mapper"/>
        </bean>
 
        <bean id="translationManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

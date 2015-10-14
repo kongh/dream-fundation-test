@@ -1,6 +1,6 @@
-package com.coder.dream.dao.model.user;
+package com.coder.dream.data.dao.model.user;
 
-import com.coder.dream.base.dao.model.BaseEntity;
+import com.coder.dream.base.data.dao.model.BaseEntity;
 
 import java.util.Date;
 
